@@ -31,7 +31,7 @@ class Xotaker extends LivingCreature {
             var y = datark[1];
             this.energy--;
             matrix[this.y][this.x] = 0;
-            matrix[y][x] = 2;
+            matrix[y][x] = this.index;
             this.x = x;
             this.y = y;
         }
@@ -58,7 +58,7 @@ class Xotaker extends LivingCreature {
             matrix[this.y][this.x] = 0;
             var x = uteliq[0];
             var y = uteliq[1];
-            matrix[y][x] = 2;
+            matrix[y][x] = this.index;
             this.x = x;
             this.y = y;
             this.energy++;
@@ -81,7 +81,7 @@ class Xotaker extends LivingCreature {
             var y = norVandak[1];
             var norutox = new Xotaker(x, y);
             XotakerArr.push(norutox);
-            matrix[y][x] = 2;
+            matrix[y][x] = this.index;
         }
 
 

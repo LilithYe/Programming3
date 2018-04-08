@@ -15,7 +15,7 @@ class Grass extends LivingCreature {
             var y = norVandak[1];
             var norXot = new Grass(x, y);
             grassArr.push(norXot);
-            matrix[y][x] = 1;
+            matrix[y][x] = this.index;
             this.energy = 0;
         }
 

@@ -5,8 +5,8 @@ var m = 30;
 
 
 var grassArr = [];
-var XotakerArr = [];
-var GishatichArr = [];
+var GrassEaterArr = [];
+var PredatorArr = [];
 var GunArr = [];
 var WallArr = [];
 var side = 20;
@@ -57,10 +57,10 @@ function setup() {
                 grassArr.push(new Grass(x, y));
             }
             else if (matrix[y][x] == 2) {
-                XotakerArr.push(new Xotaker(x, y));
+                GrassEaterArr.push(new GrassEater(x, y));
             }
             else if (matrix[y][x] == 3) {
-                GishatichArr.push(new Gishatich(x, y));
+                PredatorArr.push(new Predator(x, y));
             }
             else if (matrix[y][x] == 5) {
                 WallArr.push(new Wall(x, y));
@@ -115,27 +115,27 @@ function draw() {
 
 
     for (var i in grassArr) {
-        grassArr[i].bazmanal();
+        grassArr[i].mul();
     }
     
-    for (var i in XotakerArr) {
-        XotakerArr[i].utel();
-        XotakerArr[i].bazmanal();
-        XotakerArr[i].mahanal();
+    for (var i in GrassEaterArr) {
+        GrassEaterArr[i].eat();
+        GrassEaterArr[i].mul();
+        GrassEaterArr[i].dead();
     }
     
-    for (var i in GishatichArr) {
-        GishatichArr[i].utel();
-        GishatichArr[i].bazmanal();
-        GishatichArr[i].mahanal();
+    for (var i in PredatorArr) {
+        PredatorArr[i].eat();
+        PredatorArr[i].mul();
+        PredatorArr[i].dead();
     }
 
     for (var i in GunArr) {
-        GunArr[i].sharjvel();
+        GunArr[i].move();
     }   
     
     for (i in WallArr) {
-        WallArr[i].spanel();
+        WallArr[i].kill();
     }
 
 

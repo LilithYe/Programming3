@@ -1,10 +1,10 @@
-
-
-class Gishatich {
+class Predator  extends LivingCreature {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
+        super(x, y);
         this.energy = round(random(5, 10));
+        this.index=3;
+    }
+    getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -16,44 +16,22 @@ class Gishatich {
             [this.x + 1, this.y + 1]
         ];
     }
-    stanalNorKordinatner() {
-        this.directions = [
-            [this.x - 1, this.y - 1],
-            [this.x, this.y - 1],
-            [this.x + 1, this.y - 1],
-            [this.x - 1, this.y],
-            [this.x + 1, this.y],
-            [this.x - 1, this.y + 1],
-            [this.x, this.y + 1],
-            [this.x + 1, this.y + 1]
-        ];
-    }
-    yntrelVandak(index) {
-        var found = [];
-        this.stanalNorKordinatner();
-        for (var i = 0; i < this.directions.length; i++) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == index) {
-                    found.push([x, y]);
-                }
-
-            }
-        }
-        return found;
+    chooseCell(index) {
+        this.getNewCoordinates();
+        return super.chooseCell(index);
+    
     }
 
 
-    sharjvel() {
-        var datark = random(this.yntrelVandak(0));
+    move() {
+        var empty = random(this.chooseCell(0));
         if (this.energy > 0) {
-            if (datark) {
-                var x = datark[0];
-                var y = datark[1];
+            if (empty) {
+                var x = empty[0];
+                var y = empty[1];
                 this.energy--;
                 matrix[this.y][this.x] = 0;
-                matrix[y][x] = 3;
+                matrix[y][x] = this.index;
                 this.x = x;
                 this.y = y;
             }
@@ -62,11 +40,11 @@ class Gishatich {
 
     }
 
-    mahanal() {
+    dead() {
         if (this.energy <= 0) {
-            for (var i in GishatichArr) {
-                if ((this.x == GishatichArr[i].x) && (this.y == GishatichArr[i].y)) {
-                    GishatichArr.splice(i, 1);
+            for (var i in PredatorArr) {
+                if ((this.x == PredatorArr[i].x) && (this.y == PredatorArr[i].y)) {
+                    PredatorArr.splice(i, 1);
                     matrix[this.y][this.x] = 0;
                     break;
                 }
@@ -75,36 +53,36 @@ class Gishatich {
     }
 
 
-    utel() {
-        var uteliq = random(this.yntrelVandak(2));
-        if (uteliq) {
+    eat() {
+        var eatiq = random(this.chooseCell(2));
+        if (eatiq) {
             matrix[this.y][this.x] = 0;
-            var x = uteliq[0];
-            var y = uteliq[1];
-            matrix[y][x] = 3;
+            var x = eatiq[0];
+            var y = eatiq[1];
+            matrix[y][x] = this.index;
             this.x = x;
             this.y = y;
             this.energy++;
-            for (var i in XotakerArr) {
-                if (x == XotakerArr[i].x && y == XotakerArr[i].y) {
-                    XotakerArr.splice(i, 1);
+            for (var i in GrassEaterArr) {
+                if (x == GrassEaterArr[i].x && y == GrassEaterArr[i].y) {
+                    GrassEaterArr.splice(i, 1);
                     break;
                 }
             }
 
         }
         else {
-            this.sharjvel();
+            this.move();
         }
     }
-    bazmanal() {
-        var norVandak = random(this.yntrelVandak(0));
-        if (this.energy > 10 && norVandak) {
-            var x = norVandak[0];
-            var y = norVandak[1];
-            var norutox = new Gishatich(x, y);
-            GishatichArr.push(norutox);
-            matrix[y][x] = 3;
+    mul() {
+        var newCell = random(this.chooseCell(0));
+        if (this.energy > 10 && newCell) {
+            var x = newCell[0];
+            var y = newCell[1];
+            var newEater = new Predator(x, y);
+            PredatorArr.push(newEater);
+            matrix[y][x] = this.index;
         }
 
 

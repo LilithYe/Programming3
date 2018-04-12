@@ -16,7 +16,7 @@ class LivingCreature {
         ];
 
     }
-    yntrelNorVandak(ch) {
+    chooseCell(ch) {
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];

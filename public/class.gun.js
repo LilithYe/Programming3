@@ -1,18 +1,18 @@
 
-class Gun {
+class Gun  extends LivingCreature {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
+        super(x,y);
         this.Check(x, y);
+        this.index=4;
     }
 
     Check(x, y) {
         var value = matrix[y][x];
 
 
-        for (var i in XotakerArr) {
-            if (x == XotakerArr[i].x && y == XotakerArr[i].y) {
-                XotakerArr.splice(i, 1);
+        for (var i in GrassEaterArr) {
+            if (x == GrassEaterArr[i].x && y == GrassEaterArr[i].y) {
+                GrassEaterArr.splice(i, 1);
                 break;
             }
         }
@@ -22,9 +22,9 @@ class Gun {
                 break;
             }
         }
-        for (var i in GishatichArr) {
-            if (x == GishatichArr[i].x && y == GishatichArr[i].y) {
-                GishatichArr.splice(i, 1);
+        for (var i in PredatorArr) {
+            if (x == PredatorArr[i].x && y == PredatorArr[i].y) {
+                PredatorArr.splice(i, 1);
                 break;
             }
         }
@@ -32,7 +32,7 @@ class Gun {
 
     }
 
-    sharjvel() {
+    move() {
         if (this.y <= 28) {
 
             for (var i in WallArr) {
@@ -54,7 +54,7 @@ class Gun {
             this.y++;
             var x = this.x;
             var y = this.y;
-            matrix[y][x] = 4;
+            matrix[y][x] =this.index;
             this.Check(x, y);
         }
         else {

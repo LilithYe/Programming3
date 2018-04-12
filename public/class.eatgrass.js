@@ -1,11 +1,11 @@
-class Xotaker extends LivingCreature {
+class GrassEater extends LivingCreature {
     constructor(x, y) {
         super(x, y);
         this.energy = round(random(0, 8));
         this.index = 2
 
     }
-    stanalNorKordinatner() {
+    getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x, this.y - 1],
@@ -17,18 +17,18 @@ class Xotaker extends LivingCreature {
             [this.x + 1, this.y + 1]
         ];
     }
-    yntrelVandak(index) {
-        this.stanalNorKordinatner();
-        return super.yntrelNorVandak(index);
+    chooseCell(index) {
+        this.getNewCoordinates();
+        return super.chooseCell(index);
     }
 
 
 
-    sharjvel() {
-        var datark = random(this.yntrelVandak(0));
-        if (datark) {
-            var x = datark[0];
-            var y = datark[1];
+    move() {
+        var empty = random(this.chooseCell(0));
+        if (empty) {
+            var x = empty[0];
+            var y = empty[1];
             this.energy--;
             matrix[this.y][this.x] = 0;
             matrix[y][x] = this.index;
@@ -39,12 +39,12 @@ class Xotaker extends LivingCreature {
 
 
     }
-    mahanal() {
+    dead() {
         if (this.energy <= 0) {
-            for (var i in XotakerArr) {
-                if ((this.x == XotakerArr[i].x) && (this.y == XotakerArr[i].y)) {
+            for (var i in GrassEaterArr) {
+                if ((this.x == GrassEaterArr[i].x) && (this.y == GrassEaterArr[i].y)) {
                     matrix[this.y][this.x] = 0;
-                    XotakerArr.splice(i, 1);
+                    GrassEaterArr.splice(i, 1);
                     break;
                 }
             }
@@ -52,12 +52,12 @@ class Xotaker extends LivingCreature {
     }
 
 
-    utel() {
-        var uteliq = random(this.yntrelVandak(1));
-        if (uteliq) {
+    eat() {
+        var eatiq = random(this.chooseCell(1));
+        if (eatiq) {
             matrix[this.y][this.x] = 0;
-            var x = uteliq[0];
-            var y = uteliq[1];
+            var x = eatiq[0];
+            var y = eatiq[1];
             matrix[y][x] = this.index;
             this.x = x;
             this.y = y;
@@ -71,16 +71,16 @@ class Xotaker extends LivingCreature {
 
         }
         else {
-            this.sharjvel();
+            this.move();
         }
     }
-    bazmanal() {
-        var norVandak = random(this.yntrelVandak(0));
-        if (this.energy > 8 && norVandak) {
-            var x = norVandak[0];
-            var y = norVandak[1];
-            var norutox = new Xotaker(x, y);
-            XotakerArr.push(norutox);
+    mul() {
+        var newCell = random(this.chooseCell(0));
+        if (this.energy > 8 && newCell) {
+            var x = newCell[0];
+            var y = newCell[1];
+            var newEater = new GrassEater(x, y);
+            GrassEaterArr.push(newEater);
             matrix[y][x] = this.index;
         }
 
